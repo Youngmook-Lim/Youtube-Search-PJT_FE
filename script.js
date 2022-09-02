@@ -8,24 +8,24 @@ const btnCloseModal = document.querySelector(".btn__close-modal");
 const btnCloseReviewModal = document.querySelector(".btn__close-review-modal");
 const registerReviewBtn = document.querySelector(".register-review-btn");
 const closeReviewBtn = document.querySelector(".close-review-btn");
-
 const modalContainer = document.querySelector(".modal-container");
-const curList = [];
-
 const navSideDiv = document.querySelector(".nav-side-div");
-navSideDiv.addEventListener("click", () => {
-  alert("서비스 준비중입니다 :D");
-});
-
 const navIconMain = document.querySelector(".nav-icon-main");
-navIconMain.addEventListener("click", () => {
-  alert("싸피는 위대하다.");
-});
+const btn = document.querySelector("#search-btn");
+const curList = [];
 
 const toggleHidden = () => {
   modal.classList.toggle("hidden");
   overlay.classList.toggle("hidden");
 };
+
+navSideDiv.addEventListener("click", () => {
+  alert("서비스 준비중입니다 :D");
+});
+
+navIconMain.addEventListener("click", () => {
+  alert("싸피는 위대하다.");
+});
 
 btnCloseModal.addEventListener("click", () => {
   toggleHidden();
@@ -39,8 +39,6 @@ modalContainer.addEventListener("click", (e) => {
     modalContainer.innerHTML = "";
   }
 });
-
-const btn = document.querySelector("#search-btn");
 
 btn.addEventListener("click", () => {
   const value = document.querySelector("#search").value;
@@ -57,7 +55,6 @@ btn.addEventListener("click", () => {
     },
   })
     .then((res) => {
-      console.log(res.data.items);
       return res.data.items;
     })
     .then((res) => {
@@ -88,24 +85,22 @@ btn.addEventListener("click", () => {
         divTag.setAttribute("data-videoid", res[i].id.videoId);
         videoList.appendChild(divTag);
       }
-      console.log(curList);
 
       videoList.addEventListener("click", (e) => {
         const video = e.target.closest(".video");
         if (e.target.tagName === "IMG") {
-          // 모달창 만들기
           modalContainer.innerHTML = "";
           const html = `
           <div class="modal-review">
             <span class="btn__close-review-modal">×</span>
-            <h2 class="add-review__title">운동 리뷰</h2>
+            <h2 class="add-review__title">영상 리뷰</h2>
             <hr />
             <div class="iframe">
               <iframe src="https://www.youtube.com/embed/${video.dataset.videoid}" frameborder="0" width="300" height="200"></iframe>
             </div>
             <hr />
             <button class="add-review-btn">
-              글작성
+              글 작성
             </button>
             <div class="review-list-container">
             </div>
@@ -113,7 +108,6 @@ btn.addEventListener("click", () => {
             </div>
           </div>
           `;
-          console.log(video.dataset.videoid);
           modalContainer.insertAdjacentHTML("beforeend", html);
 
           const reviewListContainer = document.querySelector(
@@ -170,7 +164,6 @@ btn.addEventListener("click", () => {
               ".add-review-container-content"
             ).value;
 
-            console.log(title, content);
             if (title === "" || content === "") return;
 
             const date = new Date();
@@ -184,14 +177,12 @@ btn.addEventListener("click", () => {
             videoObject.reviews.push(Review);
 
             toggleHidden();
+
             document.querySelector(".add-review-container-title").value = "";
             document.querySelector(".add-review-container-content").value = "";
-            console.log(curList);
 
             updateReviewList();
           };
-
-          // const reviewTable = document.querySelector(".review-table");
 
           reviewListContainer.onclick = (e) => {
             const curReview = e.target.closest(".review-no");
@@ -199,7 +190,6 @@ btn.addEventListener("click", () => {
               (v) => v.videoId === video.dataset.videoid
             ).reviews[curReview.dataset.reviewno];
 
-            console.log(curReviewObject);
             const secondModal = document.querySelector(
               ".second-modal-container"
             );
@@ -219,17 +209,13 @@ btn.addEventListener("click", () => {
             const deleteReviewBtn =
               document.querySelector(".delete-review-btn");
             deleteReviewBtn.onclick = () => {
-              console.log(curReview.dataset.reviewno);
               curList
                 .find((v) => v.videoId === video.dataset.videoid)
                 .reviews.splice(+curReview.dataset.reviewno, 1);
-              console.log(curList);
               secondModal.innerHTML = "";
               updateReviewList();
             };
           };
-
-          console.log(curList);
         }
       });
     })
