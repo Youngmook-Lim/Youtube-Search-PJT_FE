@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="script.js"></script>
+    <title>SSAFIT Project</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <img class="nav-icon-main" src="img/ssafy_icon.png" alt="icon" />
+        <div class="nav-side-div">
+          <span>HOME</span>
+          <span>헬스장찾기</span>
+          <ion-icon class="nav-icon-side" name="person-add-outline"></ion-icon>
+          <ion-icon class="nav-icon-side" name="log-out-outline"></ion-icon>
+        </div>
+      </nav>
+    </header>
+    <main class="main">
+      <div class="container">
+        <h2>동영상 검색</h2>
+        <div class="search">
+          <input class="searchbar" type="text" id="search" />
+          <button id="search-btn">검색</button>
+        </div>
+        <h2>검색결과</h2>
+
+        <div class="video-list"></div>
+        <div class="modal-container"></div>
+      </div>
+      <div class="modal hidden">
+        <span class="btn__close-modal">×</span>
+        <h3 class="add-review__title">리뷰 등록</h3>
+        <hr />
+        <div class="add-review-container">
+          <input
+            class="add-review-container-title"
+            type="text"
+            placeholder="제목"
+          />
+          <input
+            class="add-review-container-content"
+            type="text"
+            placeholder="내용"
+          />
+          <div class="add-review-container-btn">
+            <button class="register-review-btn">등록</button>
+            <button class="close-review-btn">취소</button>
+          </div>
+        </div>
+      </div>
+      <div class="overlay hidden"></div>
+    </main>
+  </body>
+</html>
